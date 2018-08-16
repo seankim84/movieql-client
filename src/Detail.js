@@ -1,6 +1,7 @@
 import React from "react";
 import { Query } from "react-apollo";
 import { MOVIE_DETAILS } from "./queries";
+import { Helmet } from "react-helmet";
 import Movie from "./Movie";
 import styled from "styled-components";
 
@@ -44,11 +45,22 @@ const Detail = ({
 }) => (
   <Query query={MOVIE_DETAILS} variables={{ movieId }}>
     {({ loading, error, data }) => {
-      if (loading) return "loading";
+      if (loading)
+        return (
+          <React.Fragment>
+            <Helmet>
+              <title>Loading | MovieQL</title>
+            </Helmet>
+            loading
+          </React.Fragment>
+        );
       if (error) return "error";
       return (
         <React.Fragment>
           <Container>
+            <Helmet>
+              <title>{data.movie.title} | MovieQL</title>
+            </Helmet>
             <Image src={data.movie.medium_cover_image} />
             <span>
               <Title>{data.movie.title}</Title>
