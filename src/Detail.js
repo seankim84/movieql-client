@@ -1,5 +1,14 @@
 import React from 'react';
+import {Query} from 'react-apollo';
 
-const Detail = () => <div>Detail</div>;
 
-export default Detail;
+const Detail = () => ({
+    match: {
+        params: {movieId}
+    }
+}) => {
+    console.log(movieId);
+    return <div>Detail</div>
+};
+
+export default Detail;  
